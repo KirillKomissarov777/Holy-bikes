@@ -19,6 +19,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body>
+        {/* Background photo — place your image at /public/bg.jpg to enable */}
+        <div
+          aria-hidden
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: -2,
+            backgroundImage: 'url(/bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div aria-hidden style={{ position: 'fixed', inset: 0, zIndex: -1, background: 'rgba(0,0,0,0.6)' }} />
         <TelegramProvider>{children}</TelegramProvider>
       </body>
     </html>

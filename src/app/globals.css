@@ -1,31 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --tg-bg: #ffffff;
-  --tg-text: #171717;
-  --tg-hint: #9CA3AF;
-  --tg-link: #0F8AD2;
-  --tg-button: #0F8AD2;
-  --tg-button-text: #FFFFFF;
-  --tg-secondary-bg: #f4f4f5;
-  --tg-section-bg: #f4f4f5;
-  --tg-destructive: #EF4444;
+  /* Telegram theme vars — overridden at runtime by TG SDK */
+  --tg-bg: #0a0a0a;
+  --tg-text: #f0f0f0;
+  --tg-hint: #6b7280;
+  --tg-link: #f59e0b;
+  --tg-button: #f59e0b;
+  --tg-button-text: #0a0a0a;
+  --tg-secondary-bg: #1c1c1e;
+  --tg-section-bg: #141414;
+  --tg-destructive: #ef4444;
+
+  /* Brand accent — always amber, never overridden by TG theme */
+  --accent: #f59e0b;
+  --accent-dim: #d97706;
+  --accent-fg: #0a0a0a;
+
+  /* Status */
+  --status-free: #4ade80;
+  --status-occupied: #f87171;
+
+  /* Surfaces */
+  --surface: #141414;
+  --surface-raised: #1c1c1e;
+  --border: rgba(255, 255, 255, 0.08);
 }
 
 @theme {
   --color-background: var(--tg-bg);
   --color-foreground: var(--tg-text);
-  --color-primary: var(--tg-button);
-  --color-primary-foreground: var(--tg-button-text);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-fg);
   --color-secondary: var(--tg-secondary-bg);
   --color-card: var(--tg-section-bg);
   --color-muted: var(--tg-hint);
 }
 
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   background-color: var(--tg-bg);
   color: var(--tg-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
+  /* Subtle atmospheric gradient */
+  background-image: radial-gradient(
+    ellipse 80% 40% at 50% 0%,
+    rgba(245, 158, 11, 0.08) 0%,
+    transparent 70%
+  );
+  background-attachment: fixed;
 }

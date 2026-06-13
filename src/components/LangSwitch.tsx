@@ -8,7 +8,7 @@ export function LangSwitch() {
   return (
     <button
       onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}
-      className="text-sm font-medium px-3 py-1 rounded-full border border-[var(--tg-hint)] text-[var(--tg-hint)] hover:text-[var(--tg-text)] hover:border-[var(--tg-text)] transition-colors"
+      className="text-xs font-bold px-3 py-1.5 rounded-lg border border-[var(--border)] text-[var(--tg-hint)] hover:text-[var(--accent)] hover:border-[var(--accent)]/40 transition-all duration-150 tracking-widest"
     >
       {lang === 'ru' ? 'EN' : 'RU'}
     </button>

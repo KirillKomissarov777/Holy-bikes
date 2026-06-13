@@ -16,41 +16,49 @@ export function BikeCard({ bike, lang, tr }: BikeCardProps) {
 
   return (
     <Link href={`/bikes/${bike.id}`} className="block">
-      <div className="rounded-2xl overflow-hidden bg-[var(--tg-section-bg)] active:scale-[0.98] transition-transform">
-        <div className="relative w-full aspect-video bg-[var(--tg-secondary-bg)]">
-          {cover ? (
-            <img
-              src={cover.storage_url}
-              alt={name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-[var(--tg-hint)] text-sm">
-              No photo
-            </div>
-          )}
+      <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden active:scale-[0.97] transition-transform duration-150">
+        {/* Photo */}
+        {cover ? (
+          <img
+            src={cover.storage_url}
+            alt={name}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-[var(--surface-raised)] flex items-center justify-center">
+            <span className="text-4xl opacity-30">🏍</span>
+          </div>
+        )}
+
+        {/* Bottom gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+
+        {/* Status badge */}
+        <div className="absolute top-3 left-3">
           <span
-            className={`absolute top-2 right-2 text-xs px-2 py-0.5 rounded-full font-medium ${
+            className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-md border ${
               isFree
-                ? 'bg-green-500/20 text-green-400'
-                : 'bg-red-500/20 text-red-400'
+                ? 'bg-green-500/15 text-green-400 border-green-500/30'
+                : 'bg-red-500/15 text-red-400 border-red-500/30'
             }`}
           >
+            <span className={`w-1.5 h-1.5 rounded-full ${isFree ? 'bg-green-400' : 'bg-red-400'}`} />
             {isFree ? tr.free : tr.occupied}
           </span>
         </div>
 
-        <div className="p-3">
-          <h3 className="text-[var(--tg-text)] font-semibold text-base truncate">{name}</h3>
-          <p className="text-[var(--tg-button)] font-bold text-lg">
-            {tr.currency}{price}{' '}
-            <span className="text-[var(--tg-hint)] text-sm font-normal">
-              / {tr.pricePerDay}
-            </span>
-          </p>
-          <p className="text-[var(--tg-hint)] text-xs mt-1">
-            {bike.power} {tr.hp} · {bike.max_speed} {tr.kmh}
-          </p>
+        {/* Text overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <h3 className="text-white font-bold text-lg leading-tight truncate mb-1">{name}</h3>
+          <div className="flex items-center justify-between">
+            <p className="text-[var(--accent)] font-bold text-xl leading-none">
+              {tr.currency}{price.toLocaleString()}
+              <span className="text-white/50 text-xs font-normal ml-1">/ {tr.pricePerDay}</span>
+            </p>
+            <p className="text-white/50 text-xs">
+              {bike.power} {tr.hp} · {bike.max_speed} {tr.kmh}
+            </p>
+          </div>
         </div>
       </div>
     </Link>

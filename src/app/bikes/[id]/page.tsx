@@ -27,7 +27,6 @@ export default function BikeDetailPage() {
   function handleBook() {
     const ownerUsername = process.env.NEXT_PUBLIC_OWNER_USERNAME;
     const tg = (window as unknown as { Telegram?: { WebApp: { openTelegramLink: (url: string) => void } } }).Telegram?.WebApp;
-
     if (ownerUsername) {
       tg?.openTelegramLink(`https://t.me/${ownerUsername}`);
     }
@@ -35,19 +34,26 @@ export default function BikeDetailPage() {
 
   if (loading) {
     return (
-      <div className="max-w-md mx-auto px-4 py-4">
-        <div className="rounded-2xl bg-[var(--tg-section-bg)] h-64 animate-pulse mb-4" />
-        <div className="h-6 bg-[var(--tg-section-bg)] rounded animate-pulse mb-2 w-2/3" />
-        <div className="h-10 bg-[var(--tg-section-bg)] rounded animate-pulse mb-4 w-1/3" />
-        <div className="h-40 bg-[var(--tg-section-bg)] rounded-2xl animate-pulse" />
+      <div className="max-w-md mx-auto pb-28">
+        <div className="w-full aspect-video bg-[var(--surface)] animate-pulse" />
+        <div className="px-4 pt-4">
+          <div className="h-7 bg-[var(--surface)] rounded-lg animate-pulse mb-2 w-2/3" />
+          <div className="h-8 bg-[var(--surface)] rounded-lg animate-pulse mb-5 w-1/2" />
+          <div className="grid grid-cols-2 gap-2">
+            {[1,2,3,4].map((i) => (
+              <div key={i} className="h-20 bg-[var(--surface)] rounded-xl animate-pulse" />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
 
   if (!bike) {
     return (
-      <div className="flex items-center justify-center min-h-screen text-[var(--tg-hint)]">
-        Not found
+      <div className="flex flex-col items-center justify-center min-h-screen gap-3">
+        <span className="text-5xl opacity-30">🏍</span>
+        <p className="text-[var(--tg-hint)] text-sm">Not found</p>
       </div>
     );
   }
@@ -60,57 +66,70 @@ export default function BikeDetailPage() {
   return (
     <>
       <BackButton />
-      <main className="max-w-md mx-auto px-4 pb-28">
-        <header className="flex items-center justify-between py-4">
-          <span className="text-[var(--tg-hint)] text-sm">🏍 Holy Bikes</span>
+      <main className="max-w-md mx-auto pb-28">
+        {/* Header — sits above gallery */}
+        <header className="flex items-center justify-between px-4 pt-4 pb-3">
+          <span className="font-black text-sm tracking-tight">
+            <span className="text-[var(--tg-hint)]">HOLY </span>
+            <span className="text-[var(--accent)]">BIKES</span>
+          </span>
           <LangSwitch />
         </header>
 
+        {/* Full-width gallery */}
         <BikeGallery photos={bike.bike_photos} altName={name} />
 
-        <div className="mt-4 mb-2 flex items-start justify-between gap-2">
-          <div>
-            <h1 className="text-[var(--tg-text)] font-bold text-2xl">{name}</h1>
-            <p className="text-[var(--tg-button)] font-bold text-xl">
-              {tr.currency}{price}{' '}
-              <span className="text-[var(--tg-hint)] text-sm font-normal">/ {tr.pricePerDay}</span>
-            </p>
+        {/* Info block */}
+        <div className="px-4 pt-5">
+          {/* Name + status */}
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <h1 className="text-[var(--tg-text)] font-black text-2xl leading-tight flex-1">{name}</h1>
+            <span
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mt-1 shrink-0 border ${
+                isFree
+                  ? 'bg-green-500/15 text-green-400 border-green-500/30'
+                  : 'bg-red-500/15 text-red-400 border-red-500/30'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${isFree ? 'bg-green-400' : 'bg-red-400'}`} />
+              {isFree ? tr.free : tr.occupied}
+            </span>
           </div>
-          <span
-            className={`text-xs px-3 py-1 rounded-full font-medium mt-1 shrink-0 ${
-              isFree
-                ? 'bg-green-500/20 text-green-400'
-                : 'bg-red-500/20 text-red-400'
-            }`}
-          >
-            {isFree ? tr.free : tr.occupied}
-          </span>
+
+          {/* Price */}
+          <p className="text-[var(--accent)] font-black text-3xl mb-4">
+            {tr.currency}{price.toLocaleString()}
+            <span className="text-[var(--tg-hint)] text-sm font-normal ml-2">/ {tr.pricePerDay}</span>
+          </p>
+
+          {/* Description */}
+          {desc && (
+            <p className="text-[var(--tg-hint)] text-sm mb-5 leading-relaxed">{desc}</p>
+          )}
+
+          {/* Specs */}
+          <h2 className="text-[var(--tg-text)] font-bold text-sm uppercase tracking-widest mb-3 opacity-50">
+            {tr.specs}
+          </h2>
+          <SpecsTable bike={bike} tr={tr} />
+
+          {/* CTA */}
+          {isFree ? (
+            <button
+              onClick={handleBook}
+              className="w-full mt-6 py-4 rounded-2xl bg-[var(--accent)] text-[var(--accent-fg)] font-bold text-base active:scale-[0.98] transition-transform"
+            >
+              {tr.book}
+            </button>
+          ) : (
+            <button
+              onClick={handleBook}
+              className="w-full mt-6 py-4 rounded-2xl bg-[var(--surface)] text-[var(--tg-hint)] font-semibold text-base border border-[var(--border)] active:scale-[0.98] transition-transform"
+            >
+              {tr.leaveRequest}
+            </button>
+          )}
         </div>
-
-        {desc && (
-          <p className="text-[var(--tg-hint)] text-sm mb-4 leading-relaxed">{desc}</p>
-        )}
-
-        <h2 className="text-[var(--tg-text)] font-semibold mb-2">{tr.specs}</h2>
-        <SpecsTable bike={bike} tr={tr} />
-
-        {isFree && (
-          <button
-            onClick={handleBook}
-            className="w-full mt-6 py-4 rounded-2xl bg-[var(--tg-button)] text-[var(--tg-button-text)] font-semibold text-base active:opacity-80 transition-opacity"
-          >
-            {tr.book}
-          </button>
-        )}
-
-        {!isFree && (
-          <button
-            onClick={handleBook}
-            className="w-full mt-6 py-4 rounded-2xl bg-[var(--tg-secondary-bg)] text-[var(--tg-hint)] font-semibold text-base border border-[var(--tg-hint)]/30 active:opacity-80 transition-opacity"
-          >
-            {tr.leaveRequest}
-          </button>
-        )}
       </main>
     </>
   );
