@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --tg-bg: #ffffff;
+  --tg-text: #171717;
+  --tg-hint: #9CA3AF;
+  --tg-link: #0F8AD2;
+  --tg-button: #0F8AD2;
+  --tg-button-text: #FFFFFF;
+  --tg-secondary-bg: #f4f4f5;
+  --tg-section-bg: #f4f4f5;
+  --tg-destructive: #EF4444;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background: var(--tg-bg);
+  --color-foreground: var(--tg-text);
+  --color-primary: var(--tg-button);
+  --color-primary-foreground: var(--tg-button-text);
+  --color-secondary: var(--tg-secondary-bg);
+  --color-card: var(--tg-section-bg);
+  --color-muted: var(--tg-hint);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--tg-bg);
+  color: var(--tg-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
 }
