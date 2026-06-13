@@ -8,10 +8,10 @@ interface SpecsTableProps {
 
 export function SpecsTable({ bike, tr }: SpecsTableProps) {
   const specs = [
-    { icon: '📍', label: tr.mileage, value: `${bike.mileage.toLocaleString()} ${tr.km}` },
-    { icon: '⚡', label: tr.power, value: `${bike.power} ${tr.hp}` },
-    { icon: '🚀', label: tr.maxSpeed, value: `${bike.max_speed} ${tr.kmh}` },
-    { icon: '⛽', label: tr.fuelCons, value: `${bike.fuel_cons} ${tr.fuelUnit}` },
+    { label: tr.mileage, value: `${bike.mileage.toLocaleString()} ${tr.km}` },
+    { label: tr.power, value: `${bike.power} ${tr.hp}` },
+    { label: tr.maxSpeed, value: `${bike.max_speed} ${tr.kmh}` },
+    { label: tr.fuelCons, value: `${bike.fuel_cons} ${tr.fuelUnit}` },
   ];
 
   return (
@@ -21,13 +21,10 @@ export function SpecsTable({ bike, tr }: SpecsTableProps) {
           key={spec.label}
           className="bg-[var(--surface)] rounded-xl px-4 py-3 border border-[var(--border)]"
         >
-          <div className="flex items-center gap-1.5 mb-1">
-            <span className="text-base leading-none">{spec.icon}</span>
-            <span className="text-[var(--tg-hint)] text-xs uppercase tracking-wider font-medium">
-              {spec.label}
-            </span>
-          </div>
-          <p className="text-[var(--tg-text)] font-bold text-base">{spec.value}</p>
+          <span className="text-[var(--tg-hint)] text-xs uppercase tracking-wider font-medium block mb-1">
+            {spec.label}
+          </span>
+          <p className="text-white font-bold text-base">{spec.value}</p>
         </div>
       ))}
     </div>
