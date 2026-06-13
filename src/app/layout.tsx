@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             position: 'fixed',
             inset: 0,
             zIndex: -2,
-            backgroundImage: 'url(/bg.jpg)',
+            backgroundImage: 'url(/bg.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
