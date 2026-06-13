@@ -19,7 +19,7 @@ export const translations = {
     photos: 'Фото',
     specs: 'Характеристики',
     backToList: 'Назад',
-    currency: '₽',
+    currency: 'Rp',
   },
   en: {
     free: 'Available',
@@ -39,7 +39,7 @@ export const translations = {
     photos: 'Photos',
     specs: 'Specs',
     backToList: 'Back',
-    currency: '$',
+    currency: 'Rp',
   },
 } as const;
 
