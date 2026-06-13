@@ -83,7 +83,7 @@ export default function BikeDetailPage() {
         <div className="px-4 pt-5">
           {/* Name + status */}
           <div className="flex items-start justify-between gap-3 mb-1">
-            <h1 className="text-[var(--tg-text)] font-black text-2xl leading-tight flex-1">{name}</h1>
+            <h1 className="text-white font-black text-2xl leading-tight flex-1">{name}</h1>
             <span
               className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mt-1 shrink-0 border ${
                 isFree
